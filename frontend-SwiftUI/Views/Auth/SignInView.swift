@@ -41,7 +41,7 @@ struct SignInView: View {
                     if let errorMessage = authViewModel.errorMessage {
                         Text(errorMessage)
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundColor(ColorTheme.babyPinkDark)
                             .padding()
                             .background(Color.red.opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 10))

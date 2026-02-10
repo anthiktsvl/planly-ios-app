@@ -99,7 +99,7 @@ struct AnimatedProfileBackground: View {
             Circle()
                 .fill(
                     RadialGradient(
-                        colors: [.pink.opacity(0.15), .clear],
+                        colors: [ColorTheme.babyPink.opacity(0.15), .clear],
                         center: .topTrailing,
                         startRadius: 0,
                         endRadius: 500
@@ -112,7 +112,7 @@ struct AnimatedProfileBackground: View {
             Circle()
                 .fill(
                     RadialGradient(
-                        colors: [.purple.opacity(0.15), .clear],
+                        colors: [ColorTheme.babyPinkDark.opacity(0.15), .clear],
                         center: .bottomLeading,
                         startRadius: 0,
                         endRadius: 500
@@ -146,7 +146,7 @@ struct ProfileHeaderCard: View {
                     Circle()
                         .stroke(
                             LinearGradient(
-                                colors: [.pink.opacity(0.3), .purple.opacity(0.3)],
+                                colors: [ColorTheme.babyPink.opacity(0.3), ColorTheme.babyPinkLight.opacity(0.3)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -158,7 +158,7 @@ struct ProfileHeaderCard: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [.pink, .purple],
+                                colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -197,7 +197,7 @@ struct ProfileHeaderCard: View {
                     .padding(.vertical, 7)
                     .background(
                         LinearGradient(
-                            colors: [.pink, .purple],
+                            colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
@@ -224,7 +224,7 @@ struct ProfileHeaderCard: View {
                         .trim(from: 0, to: completionRate)
                         .stroke(
                             LinearGradient(
-                                colors: [.pink, .purple],
+                                colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -240,7 +240,7 @@ struct ProfileHeaderCard: View {
                             .fontWeight(.bold)
                             .foregroundStyle(
                                 LinearGradient(
-                                    colors: [.pink, .purple],
+                                    colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )
@@ -531,7 +531,7 @@ struct AppInfoSection: View {
                 .font(.body)
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.pink, .purple],
+                        colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                         startPoint: .leading,
                         endPoint: .trailing
                     )
@@ -577,7 +577,7 @@ struct EditProfileView: View {
                                 Circle()
                                     .fill(
                                         LinearGradient(
-                                            colors: [.pink, .purple],
+                                            colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing
                                         )
@@ -595,7 +595,7 @@ struct EditProfileView: View {
                             .font(.caption)
                             .foregroundStyle(
                                 LinearGradient(
-                                    colors: [.pink, .purple],
+                                    colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )
@@ -651,7 +651,7 @@ struct EditProfileView: View {
                             .padding(.vertical, 14)
                             .background(
                                 LinearGradient(
-                                    colors: [.pink, .purple],
+                                    colors: [ColorTheme.babyPink, ColorTheme.babyPinkDark],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 )

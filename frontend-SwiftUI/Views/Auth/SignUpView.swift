@@ -43,7 +43,7 @@ struct SignUpView: View {
                     if let errorMessage = authViewModel.errorMessage {
                         Text(errorMessage)
                             .font(.caption)
-                            .foregroundColor(.red)
+                            .foregroundColor(ColorTheme.babyPinkDark)
                             .padding()
                             .background(Color.red.opacity(0.1))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -121,7 +121,7 @@ struct SignUpView: View {
                         if !password.isEmpty && !confirmPassword.isEmpty && password != confirmPassword {
                             Text("Passwords don't match")
                                 .font(.caption)
-                                .foregroundColor(.red)
+                                .foregroundColor(.pink)
                         }
                     }
                     

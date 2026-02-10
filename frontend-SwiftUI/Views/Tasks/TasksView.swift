@@ -219,7 +219,7 @@ struct TaskRowView: View {
             } label: {
                 Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
-                    .foregroundColor(task.isCompleted ? .green : .gray)
+                    .foregroundColor(task.isCompleted ? ColorTheme.babyPink : ColorTheme.babyPinkDark)
             }
             
             VStack(alignment: .leading, spacing: 4) {

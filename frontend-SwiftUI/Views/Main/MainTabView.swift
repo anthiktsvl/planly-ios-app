@@ -33,7 +33,7 @@ struct MainTabView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
         }
-        .accentColor(.pink)
+        .tint(ColorTheme.babyPinkDark)
     }
 }
 

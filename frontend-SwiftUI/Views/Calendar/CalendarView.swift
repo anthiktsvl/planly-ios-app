@@ -53,7 +53,7 @@ struct CalendarView: View {
                         } label: {
                             Image(systemName: "chevron.right")
                                 .font(.title3)
-                                .foregroundColor(.pink)
+                                .foregroundColor(ColorTheme.babyPinkDark)
                                 .frame(width: 44, height: 44)
                         }
                     }
@@ -101,7 +101,7 @@ struct CalendarView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.pink)
+                                .foregroundColor(ColorTheme.babyPink)
                             Text("Tasks")
                                 .font(.headline)
                             Text("(\(tasksForSelectedDate.count))")
@@ -200,14 +200,14 @@ struct DayCell: View {
                     .font(.subheadline)
                     .fontWeight(isToday ? .bold : .regular)
                     .foregroundColor(
-                        isSelected ? .white :
-                        isToday ? .pink :
+                        isSelected ? .black :
+                        isToday ? ColorTheme.babyPinkLight :
                         .primary
                     )
                 
                 if hasTask {
                     Circle()
-                        .fill(isSelected ? Color.white : Color.pink)
+                        .fill(isSelected ? Color.black : ColorTheme.babyPink)
                         .frame(width: 4, height: 4)
                 } else {
                     Circle()
@@ -221,12 +221,12 @@ struct DayCell: View {
                 Group {
                     if isSelected {
                         LinearGradient(
-                            colors: [.pink, .purple],
+                            colors: [ColorTheme.babyPinkLight, ColorTheme.babyPink],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     } else if isToday {
-                        Color.pink.opacity(0.1)
+                        ColorTheme.babyPinkDark.opacity(0.1)
                     } else {
                         Color.clear
                     }

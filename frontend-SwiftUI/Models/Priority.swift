@@ -21,9 +21,9 @@ extension TaskItem {
         
         var color: Color {
             switch self {
-            case .low: return .green
-            case .medium: return .orange
-            case .high: return .red
+            case .low: return ColorTheme.babyPinkLight
+            case .medium: return ColorTheme.babyPink
+            case .high: return ColorTheme.babyPinkDark
             }
         }
     }

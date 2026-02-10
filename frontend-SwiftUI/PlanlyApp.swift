@@ -16,12 +16,9 @@ struct PlanlyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(authViewModel)
-                .environmentObject(dataViewModel)
-                .onAppear {
-                    print("🚨 ContentView appeared!")
+                    LottieSplashView()
+                        .tint(ColorTheme.babyPinkDark)
                 }
         }
     }
-}
+
