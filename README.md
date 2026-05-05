@@ -36,7 +36,7 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 - 🔴 Visual indicators for days with tasks
 - 📊 See task count at a glance
 
-### 📊 **Projects** *(Coming Soon)*
+### 📊 **Projects** 
 - 📁 Group related tasks into projects
 - 🎯 Track project progress
 - 👥 Collaborate with team members
