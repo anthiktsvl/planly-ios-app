@@ -1,3 +1,6 @@
+// 
+
+
 const pool = require('../config/database');
 
 // Get all tasks visible to user
@@ -27,7 +30,16 @@ exports.getTasks = async (req, res) => {
             WHERE tc.task_id = t.id
           ),
           '[]'
-        ) as collaborators
+        ) as collaborators,
+        COALESCE(
+          (
+            SELECT json_agg(u.email ORDER BY u.name)
+            FROM task_collaborators tc
+            JOIN users u ON u.id = tc.user_id
+            WHERE tc.task_id = t.id
+          ),
+          '[]'
+        ) as assignees
        FROM tasks t
        WHERE t.user_id = $1
           OR EXISTS (
@@ -76,7 +88,16 @@ exports.getTasksByDate = async (req, res) => {
             WHERE tc.task_id = t.id
           ),
           '[]'
-        ) as collaborators
+        ) as collaborators,
+        COALESCE(
+          (
+            SELECT json_agg(u.email ORDER BY u.name)
+            FROM task_collaborators tc
+            JOIN users u ON u.id = tc.user_id
+            WHERE tc.task_id = t.id
+          ),
+          '[]'
+        ) as assignees
        FROM tasks t
        WHERE (t.user_id = $1
           OR EXISTS (
@@ -115,6 +136,7 @@ exports.createTask = async (req, res) => {
       projectId,
       subtasks,
       collaboratorIds,
+      assigneeEmails, // NEW: Accept assigneeEmails from iOS app
     } = req.body;
 
     // Insert task
@@ -148,7 +170,7 @@ exports.createTask = async (req, res) => {
       }
     }
 
-    // Insert collaborators if provided
+    // Insert collaborators by ID if provided
     if (collaboratorIds && collaboratorIds.length > 0) {
       for (const collaboratorId of collaboratorIds) {
         await client.query(
@@ -157,6 +179,27 @@ exports.createTask = async (req, res) => {
            ON CONFLICT (task_id, user_id) DO NOTHING`,
           [task.id, collaboratorId]
         );
+      }
+    }
+
+    // NEW: Insert collaborators by email if provided (for iOS app)
+    if (assigneeEmails && assigneeEmails.length > 0) {
+      for (const email of assigneeEmails) {
+        // Look up user ID from email
+        const userResult = await client.query(
+          'SELECT id FROM users WHERE email = $1',
+          [email]
+        );
+        
+        if (userResult.rows.length > 0) {
+          const userId = userResult.rows[0].id;
+          await client.query(
+            `INSERT INTO task_collaborators (task_id, user_id)
+             VALUES ($1, $2)
+             ON CONFLICT (task_id, user_id) DO NOTHING`,
+            [task.id, userId]
+          );
+        }
       }
     }
 
@@ -187,7 +230,16 @@ exports.createTask = async (req, res) => {
             WHERE tc.task_id = t.id
           ),
           '[]'
-        ) as collaborators
+        ) as collaborators,
+        COALESCE(
+          (
+            SELECT json_agg(u.email ORDER BY u.name)
+            FROM task_collaborators tc
+            JOIN users u ON u.id = tc.user_id
+            WHERE tc.task_id = t.id
+          ),
+          '[]'
+        ) as assignees
        FROM tasks t
        WHERE t.id = $1`,
       [task.id]
@@ -225,6 +277,7 @@ exports.updateTask = async (req, res) => {
       isCompleted,
       projectId,
       collaboratorIds,
+      assigneeEmails, // NEW: Accept assigneeEmails from iOS app
     } = req.body;
 
     const existingTaskResult = await client.query(
@@ -270,7 +323,7 @@ exports.updateTask = async (req, res) => {
       ]
     );
 
-    // Replace collaborators only if provided
+    // Replace collaborators by ID if provided
     if (collaboratorIds !== undefined) {
       await client.query('DELETE FROM task_collaborators WHERE task_id = $1', [id]);
 
@@ -282,6 +335,30 @@ exports.updateTask = async (req, res) => {
              ON CONFLICT (task_id, user_id) DO NOTHING`,
             [id, collaboratorId]
           );
+        }
+      }
+    }
+
+    // NEW: Replace collaborators by email if provided (for iOS app)
+    if (assigneeEmails !== undefined) {
+      await client.query('DELETE FROM task_collaborators WHERE task_id = $1', [id]);
+
+      if (assigneeEmails.length > 0) {
+        for (const email of assigneeEmails) {
+          const userResult = await client.query(
+            'SELECT id FROM users WHERE email = $1',
+            [email]
+          );
+          
+          if (userResult.rows.length > 0) {
+            const userId = userResult.rows[0].id;
+            await client.query(
+              `INSERT INTO task_collaborators (task_id, user_id)
+               VALUES ($1, $2)
+               ON CONFLICT (task_id, user_id) DO NOTHING`,
+              [id, userId]
+            );
+          }
         }
       }
     }
@@ -312,7 +389,16 @@ exports.updateTask = async (req, res) => {
             WHERE tc.task_id = t.id
           ),
           '[]'
-        ) as collaborators
+        ) as collaborators,
+        COALESCE(
+          (
+            SELECT json_agg(u.email ORDER BY u.name)
+            FROM task_collaborators tc
+            JOIN users u ON u.id = tc.user_id
+            WHERE tc.task_id = t.id
+          ),
+          '[]'
+        ) as assignees
        FROM tasks t
        WHERE t.id = $1`,
       [id]

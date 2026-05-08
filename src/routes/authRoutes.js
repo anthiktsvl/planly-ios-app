@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/authMiddleware');
 
+
 // Public routes
 router.post('/signup', authController.signUp);
 router.post('/signin', authController.signIn);
@@ -10,5 +11,5 @@ router.post('/signin', authController.signIn);
 // Protected routes
 router.get('/me', authMiddleware, authController.getCurrentUser);
 router.put('/profile', authMiddleware, authController.updateProfile);
-
+router.get('/users', authMiddleware, authController.getUsers); 
 module.exports = router;
