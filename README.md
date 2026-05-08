@@ -4,7 +4,7 @@
 
 ### *Your Personal Productivity Companion* ✨
 
-A beautiful full-stack productivity app that helps you organize tasks, manage projects, and never miss a meeting! 💕
+A beautiful full-stack productivity app that helps you organize tasks, manage projects, schedule meetings, and boost your productivity with smart templates! 💕
 
 ![Swift](https://img.shields.io/badge/Swift-5.9-FA7343?style=for-the-badge&logo=swift&logoColor=white)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS%2017+-0D96F6?style=for-the-badge&logo=swift&logoColor=white)
@@ -29,27 +29,76 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 - ✏️ Add descriptions, categories, and due dates
 - ⏰ Set start and end times for tasks
 - ✨ Mark tasks as complete with satisfying animations
+- 📁 Assign tasks to projects
+- 👥 Add assignees to tasks
+- 🔔 Get notifications when tasks are due
 
-### 📅 **Calendar View**
-- 🗓️ Interactive monthly calendar
-- 👆 Tap any day to see tasks
-- 🔴 Visual indicators for days with tasks
-- 📊 See task count at a glance
+### 📊 **Project Management**
+- 📁 Create and organize projects with custom colors
+- 🎯 Track project progress with visual indicators
+- 📈 Monitor completion rates
+- 📝 Add project descriptions and categories
+- ⏰ Set project deadlines
+- 🔗 Link tasks to projects
+- 📊 View project analytics and insights
 
-### 📊 **Projects** 
-- 📁 Group related tasks into projects
-- 🎯 Track project progress
-- 👥 Collaborate with team members
-
-### 👥 **Meetings** *(Coming Soon)*
+### 👥 **Meeting Management**
 - 🎥 Schedule and manage meetings
-- ⏰ Get reminded before meetings start
-- 📝 Add meeting notes and participants
+- ⏰ Set meeting start and end times
+- 📝 Add meeting descriptions and agendas
+- 👥 Invite attendees via email
+- 🔗 Add video meeting links (Google Meet, Zoom, etc.)
+- 📅 View upcoming, past, and today's meetings
+- 🔔 Get reminders before meetings start
+- ✅ Track meeting status (scheduled, in progress, completed)
+
+### 📅 **Calendar & Analytics**
+- 🗓️ Interactive calendar view
+- 📊 Productivity analytics and insights
+- 📈 Task completion trends
+- ⏰ Time tracking per category
+- 🎯 Goal tracking and achievements
+
+### 🎨 **Smart Templates**
+- 📋 **Task Templates** - Quick-start templates for common tasks
+  - Quick Email (5 min)
+  - Code Review (30 min)
+  - Client Call (45 min)
+  - Write Blog Post (2 hours)
+  - Team Sync (30 min)
+  - Bug Fix (1 hour)
+
+- 📁 **Project Templates** - Complete project setups with tasks
+  - Website Launch (6 tasks)
+  - Marketing Campaign (6 tasks)
+  - Event Planning (6 tasks)
+
+- 🎥 **Meeting Templates** - Pre-configured meeting types
+  - Daily Standup (15 min, 3 agenda items)
+  - Weekly Planning (60 min, 4 agenda items)
+  - Client Presentation (45 min, 5 agenda items)
+  - 1-on-1 (30 min, 4 agenda items)
+
+### 🎨 **Customization**
+- 🌈 Multiple color themes (Pink, Purple, Blue, Green, Orange, Teal)
+- 📱 Adaptive font sizes for accessibility
+- 💫 Animated backgrounds and transitions
+- 🎯 Personalized user profiles
+- ⚙️ Customizable work hours and preferences
+
+### 🔔 **Notifications**
+- 📬 Task notifications
+- 📅 Meeting reminders
+- ⏰ Project deadline alerts
+- 🔔 Customizable notification preferences
+- ⏱️ Configurable reminder times
 
 ### 🔐 **Secure Authentication**
 - 🔒 JWT-based authentication
 - 🛡️ Bcrypt password hashing
 - 👤 Personalized user experience
+- 🔄 Secure profile updates
+- 🌐 Timezone support
 
 ---
 
@@ -59,9 +108,13 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 
 <div align="center">
 
-| Home View | Calendar | Tasks |
-|-----------|----------|-------|
-| ![Home](screenshots/home.png) | ![Calendar](screenshots/calendar.png) | ![Tasks](screenshots/tasks.png) |
+| Home View | Tasks | Meetings | Templates |
+|-----------|-------|----------|-----------|
+| ![Home](screenshots/home.png) | ![Tasks](screenshots/tasks.png) | ![Meetings](screenshots/meetings.png) | ![Templates](screenshots/templates.png) |
+
+| Projects | Calendar | Analytics | Profile |
+|----------|----------|-----------|---------|
+| ![Projects](screenshots/projects.png) | ![Calendar](screenshots/calendar.png) | ![Analytics](screenshots/analytics.png) | ![Profile](screenshots/profile.png) |
 
 </div>
 
@@ -75,6 +128,9 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 ⚡ Combine           - Reactive data flow
 🌐 URLSession        - Native networking
 🎯 MVVM Pattern      - Clean architecture
+🔔 UserNotifications - Local notifications
+📅 EventKit          - Calendar integration
+🎨 Custom Components - Reusable UI elements
 ```
 
 ### Backend (API)
@@ -83,6 +139,8 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 🐘 PostgreSQL        - Relational database
 🔐 JWT               - Secure authentication
 🔒 bcrypt            - Password encryption
+🛡️ Middleware        - Auth & validation
+📊 Complex queries   - Advanced data relationships
 ```
 
 ---
@@ -90,26 +148,54 @@ A beautiful full-stack productivity app that helps you organize tasks, manage pr
 ## 📁 Project Structure
 
 ```
-planly-ios-application/
+planly-ios-app/
 ├── 📱 frontend-SwiftUI/
 │   ├── Models/              # Data models
+│   │   ├── Models.swift     # Core models (Task, Project, Meeting)
+│   │   ├── Priority.swift   # Priority enum
+│   │   └── APIModels.swift  # API response models
+│   │
 │   ├── Views/               # UI components
-│   │   ├── Home/
-│   │   ├── Calendar/
-│   │   ├── Tasks/
-│   │   └── Profile/
+│   │   ├── Home/            # Home view with quick actions
+│   │   ├── Tasks/           # Task management
+│   │   ├── Projects/        # Project management
+│   │   ├── Meetings/        # Meeting scheduler
+│   │   ├── Calendar/        # Calendar view
+│   │   ├── Profile/         # User profile & settings
+│   │   └── Templates/       # Template library
+│   │
 │   ├── ViewModels/          # Business logic
+│   │   ├── AuthViewModel.swift
+│   │   ├── AppDataViewModel.swift
+│   │   └── ThemeManager.swift
+│   │
 │   ├── Services/            # API & networking
-│   │   └── API/
+│   │   ├── APIService.swift
+│   │   ├── NetworkManager.swift
+│   │   └── NotificationManager.swift
+│   │
 │   └── Components/          # Reusable UI components
+│       ├── ColorTheme.swift
+│       └── FontManager.swift
 │
-└── 🔧 planly-backend/
-    ├── src/
-    │   ├── routes/          # API endpoints
-    │   ├── models/          # Database models
-    │   ├── middleware/      # Auth & validation
-    │   └── config/          # Configuration
-    └── migrations/          # Database migrations
+└── 🔧 src/                  # Backend
+    ├── routes/              # API endpoints
+    │   ├── authRoutes.js
+    │   ├── taskRoutes.js
+    │   ├── projectRoutes.js
+    │   └── meetingRoutes.js
+    │
+    ├── controllers/         # Route handlers
+    │   ├── authController.js
+    │   ├── taskController.js
+    │   ├── projectController.js
+    │   └── meetingController.js
+    │
+    ├── middleware/          # Auth & validation
+    │   └── authMiddleware.js
+    │
+    └── config/              # Configuration
+        └── database.js
 ```
 
 ---
@@ -130,8 +216,8 @@ Before you begin, make sure you have:
 ### 🔧 Backend Setup
 
 ```bash
-# Navigate to backend
-cd planly-backend
+# Navigate to backend directory
+cd planly-ios-app
 
 # Install dependencies
 npm install
@@ -160,15 +246,15 @@ npm start
 
 ```bash
 # Navigate to frontend
-cd frontend-SwiftUI
+cd planly-ios-app
 
 # Open project in Xcode
-open Planly.xcodeproj
+open planly.xcodeproj
 ```
 
 **In Xcode:**
 
-1. 📝 Update API URL in `Services/API/APIConfig.swift`:
+1. 📝 Update API URL in `Services/APIService.swift`:
    ```swift
    static let baseURL = "http://localhost:3000/api"
    ```
@@ -177,11 +263,13 @@ open Planly.xcodeproj
 
 3. ⌘R Press **Cmd + R** to build and run
 
+4. 📝 Create an account or login to start organizing!
+
 ---
 
 ## 🔑 Environment Variables
 
-Create a `.env` file in the `planly-backend` folder:
+Create a `.env` file in the root folder:
 
 ```env
 PORT=3000
@@ -243,22 +331,64 @@ Content-Type: application/json
 {
   "name": "Finish Planly README",
   "description": "Make it cute and professional",
-  "date": "2026-02-06",
+  "date": "2026-05-09",
   "priority": "high",
-  "category": "Development"
+  "category": "Development",
+  "startTime": "09:00:00",
+  "endTime": "11:00:00",
+  "projectId": 1,
+  "assignees": ["team@planly.com"]
 }
 ```
 
-#### Update Task
+### Project Endpoints
+
+#### Get All Projects
 ```http
-PUT /tasks/:id
+GET /projects
 Authorization: Bearer {token}
 ```
 
-#### Delete Task
+#### Create Project
 ```http
-DELETE /tasks/:id
+POST /projects
 Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "name": "Website Redesign",
+  "description": "Modernize company website",
+  "category": "Development",
+  "estimatedHours": 40,
+  "deadline": "2026-06-01",
+  "color": "#FF69B4"
+}
+```
+
+### Meeting Endpoints
+
+#### Get All Meetings
+```http
+GET /meetings
+Authorization: Bearer {token}
+```
+
+#### Create Meeting
+```http
+POST /meetings
+Authorization: Bearer {token}
+Content-Type: application/json
+
+{
+  "title": "Weekly Standup",
+  "description": "Team sync meeting",
+  "date": "2026-05-09",
+  "startTime": "10:00:00",
+  "endTime": "10:30:00",
+  "attendeeEmails": ["team@planly.com"],
+  "meetingLink": "https://meet.google.com/abc-defg-hij",
+  "status": "scheduled"
+}
 ```
 
 > 📖 For full API documentation, see [API.md](docs/API.md)
@@ -269,28 +399,28 @@ Authorization: Bearer {token}
 
 Planly is designed with love and attention to detail:
 
-- 💕 **Beautiful gradients** - Pink and purple themes throughout
+- 💕 **Beautiful gradients** - Customizable color themes
 - 🎯 **Intuitive UX** - Everything is where you expect it
 - ⚡ **Fast & responsive** - Native SwiftUI performance
 - 🌙 **Modern iOS design** - Following Apple's HIG
 - ✨ **Delightful animations** - Smooth transitions and feedback
+- ♿ **Accessible** - Adaptive font sizes and clear navigation
+- 🎨 **Consistent** - Unified design language throughout
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] ✅ Task management
-- [x] 📅 Calendar view
+- [x] ✅ Task management with priorities
+- [x] ✅ Project management with progress tracking
+- [x] ✅ Meeting scheduler with attendees
+- [x] ✅ Smart templates (tasks, projects, meetings)
 - [x] 🔐 User authentication
-- [x] 🎨 Beautiful UI with gradients
-- [ ] 📊 Projects feature
-- [ ] 👥 Meetings management
-- [ ] 🔔 Push notifications
-- [ ] 🌙 Dark mode optimization
-- [ ] ☁️ iCloud sync
-- [ ] 🍎 Apple Watch app
-- [ ] 📤 Share tasks
-- [ ] 🎯 Task templates
+- [x] 🎨 Multiple color themes
+- [x] 📊 Analytics dashboard
+- [x] 🔔 Local notifications
+- [x] 📅 Calendar view
+
 
 ---
 
@@ -308,10 +438,11 @@ Contributions are always welcome! 💕
 
 ## 🐛 Known Issues
 
-- [ ] Calendar scrolling performance on older devices
-- [ ] Date parsing for different timezones
+- [ ] Meeting attendees must be registered users
+- [ ] Template creation limited to predefined templates
+- [ ] Timezone handling needs improvement for global users
 
-> Found a bug? [Open an issue](https://github.com/anthiktsvl/planly-ios-application/issues) 🐛
+> Found a bug? [Open an issue](https://github.com/anthiktsvl/planly-ios-app/issues) 🐛
 
 ---
 
@@ -326,8 +457,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 **Anthi Ktsvl**
 
 - 💼 GitHub: [@anthiktsvl](https://github.com/anthiktsvl)
-- 📧 Email: anthik@planly.com
-- 🌟 Portfolio: [your-portfolio-link.com](#)
+- 📧 Email: your-email@example.com
+- 🌟 Made with passion for productivity
 
 ---
 
@@ -336,6 +467,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - Thanks to the SwiftUI community for inspiration
 - Icons by [SF Symbols](https://developer.apple.com/sf-symbols/)
 - Color gradients inspired by modern iOS design trends
+- Template system inspired by productivity best practices
 
 ---
 
@@ -346,5 +478,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 Made with 💕 and lots of ☕
 
 **Happy Planning!** ✨
+
+---
+
+**Version 1.0.0** • Built with Swift & Node.js • May 2026
 
 </div>
